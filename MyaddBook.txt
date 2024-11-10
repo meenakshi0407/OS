@@ -1,0 +1,38 @@
+#                             Online Bash Shell.
+#                 Code, Compile, Run and Debug Bash script online.
+# Write your code in this editor and press "Run" button to execute it.
+
+
+echo "Hello World";
+add_records(){
+    read -p "ID :" ID
+    read -p "Name : " Name
+    read -p "Phone :" Phone
+    echo "$ID" "$Name" "$Phone" >> address.txt
+    echo "Entry created!"
+}
+search_records(){
+    record=$1
+    grep -w "$record" address.txt | while read -r id name phone; do
+    echo "ID - $id name-$name phone-$phone"
+    done
+}
+delete_records(){
+    read -p "Enter record to be deleted - " data
+    sed -i "/$data/d" address.txt
+    echo "Deleted Successfully." 
+}
+modify(){
+    read -p "wht to modify- " data
+    read -p "Enter new ID: " NEW_ID
+    read -p "Enter new Name: " NEW_NAME
+    read -p "Enter new Phone: " NEW_PHONE
+    sed -i "/$data/c\\$NEW_ID $NEW_NAME $NEW_PHONE" address.txt
+}
+read choice 
+case "$choice" in 
+1)add_records ;;
+2)read -p "what to search :" num ;search_records "$num";;
+3)delete_records;;
+4)modify;;
+esac
